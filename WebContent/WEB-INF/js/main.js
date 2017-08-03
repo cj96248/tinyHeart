@@ -19,7 +19,21 @@ var baby;
 var mx;
 var my;
 
+var data;
 var babyTail = [];
+var babyEye = [];
+var babyBody = [];
+
+var bigTail = [];
+var bigEye = [];
+
+var bigBodyOra = [];
+var bigBodyBlue = [];
+
+var wave;
+
+var dust;
+var dustPic = [];
 document.body.onload = game;
 function game (){
 	init();
@@ -55,11 +69,48 @@ function init(){
 	baby = new babyObj();
 	baby.init();
 	
+	data = new dataObj();
+	
 	for(var i = 0; i<8;i++){
 		 babyTail[i] = new Image();
 		 babyTail[i].src = './src/babyTail' + i +'.png'
 	}
+	for(var i = 0; i<2;i++){
+		 babyEye[i] = new Image();
+		 babyEye[i].src = './src/babyEye' + i +'.png'
+	}
+	for(var i = 0; i<20;i++){
+		 babyBody[i] = new Image();
+		 babyBody[i].src = './src/babyFade' + i +'.png'
+	}
+	for(var i = 0; i<8;i++){
+		 bigTail[i] = new Image();
+		 bigTail[i].src = './src/bigTail' + i +'.png'
+	}
+	for(var i = 0; i<2;i++){
+		 bigEye[i] = new Image();
+		 bigEye[i].src = './src/bigEye' + i +'.png'
+	}
+	for(var i = 0; i<8;i++){
+		 bigBodyOra[i] = new Image();
+		 bigBodyOra[i].src = './src/bigSwim' + i +'.png'
+		 bigBodyBlue[i] = new Image();
+		 bigBodyBlue[i].src = './src/bigSwimBlue' + i +'.png'
+	}
 	
+	ctx1.font =  '30px Verdana';
+	ctx1.textAlign = 'center';
+	
+	wave = new waveObj();
+	wave.init();
+	
+	dust = new dustObj();
+	dust.init();
+	for(var i = 0; i< 7; i++){
+		 dustPic[i] = new Image();
+		 dustPic[i].src = './src/dust' + i +'.png'
+		
+	}
 }
 
 function gameloop(){
@@ -77,12 +128,20 @@ function gameloop(){
 	mon.draw();
 	baby.draw();
 	monFruitCollision();
+	monBabyCollision();
+	data.draw();
+	wave.draw();
+	dust.draw();
 }
 
 function onMouseMove(e){
-	if(e.offSetX || e.layerX){
-		mx = e.offSetX == undefined?e.layerX:e.offSetX;
-		my = e.offSetY == undefined?e.layerY:e.offSetY;
+	if(!data.gameOver){
+		if(e.offSetX || e.layerX){
+			mx = e.offSetX == undefined?e.layerX:e.offSetX;
+			my = e.offSetY == undefined?e.layerY:e.offSetY;
+		}
 	}
+	
+	
 	
 }
